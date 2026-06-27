@@ -1,0 +1,65 @@
+/* Typography — Be Vietnam Pro hỗ trợ tiếng Việt đầy đủ */
+:root {
+  --font-sans: 'Be Vietnam Pro', 'Segoe UI', Tahoma, 'Arial Unicode MS', sans-serif;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --leading-tight: 1.25;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
+body,
+button,
+input,
+select,
+textarea,
+h1, h2, h3, h4, h5, h6,
+p, span, a, li, label,
+.vp-phone,
+.vp-subtitle,
+.vp-dialogue,
+.vp-rec,
+.vp-scene-badge,
+.vp-time,
+.vp-tiktok-footer,
+.storyboard-card,
+.dialogue-bubble,
+.modal-content,
+.simulator-select {
+  font-family: var(--font-sans) !important;
+}
+
+.font-sans,
+.font-display,
+[class*='font-'] {
+  font-family: var(--font-sans) !important;
+}
+
+/* Cỡ chữ tối thiểu — không dùng font quá nhỏ */
+.text-xs { font-size: var(--text-xs) !important; line-height: 1.45 !important; }
+.text-sm { font-size: var(--text-sm) !important; line-height: 1.5 !important; }
+.text-\[10px\] { font-size: var(--text-xs) !important; line-height: 1.45 !important; }
+
+/* Chờ font load — tránh FOUT với dấu tiếng Việt */
+html.fonts-loading body { visibility: hidden; }
+html.fonts-ready body { visibility: visible; }

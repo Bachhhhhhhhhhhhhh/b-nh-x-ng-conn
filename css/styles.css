@@ -14,13 +14,17 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-sans, 'Be Vietnam Pro', 'Segoe UI', Tahoma, sans-serif);
   background: var(--background);
   color: #1e293b;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-family: var(--font-sans);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
 /* Reveal */
@@ -67,8 +71,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .content-card .card-preview-wrap {
   position: relative;
-  height: 180px;
+  height: 220px;
   overflow: hidden;
+  background: #0a0a0a;
 }
 .card-preview-badge {
   position: absolute;
@@ -83,10 +88,11 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(0,0,0,0.55);
   backdrop-filter: blur(4px);
   color: #fbbf24;
-  font-size: 0.7rem;
+  font-size: 0.8125rem;
   font-weight: 700;
-  padding: 0.2rem 0.5rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 9999px;
+  font-family: var(--font-sans);
 }
 
 /* Buttons */
@@ -119,8 +125,8 @@ h1, h2, h3, h4, h5, h6 {
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.15rem 0.625rem;
-  font-size: 0.7rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   border-radius: 9999px;
   border: 1px solid transparent;
@@ -345,7 +351,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .storyboard-frame.done .storyboard-dot { background: #22c55e; }
 .storyboard-time {
-  font-size: 0.7rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   color: var(--accent-blue);
   text-align: right;
@@ -382,12 +388,12 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.6rem 0.75rem;
   transition: all 0.25s;
 }
-.storyboard-title { font-size: 0.8rem; font-weight: 700; color: var(--police-blue); }
-.storyboard-desc { font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; line-height: 1.4; }
+.storyboard-title { font-size: 0.9375rem; font-weight: 700; color: var(--police-blue); }
+.storyboard-desc { font-size: 0.875rem; color: var(--muted); margin-top: 0.25rem; line-height: 1.55; }
 .storyboard-overlay-tag {
   display: inline-block;
-  margin-top: 0.35rem;
-  font-size: 0.65rem;
+  margin-top: 0.4rem;
+  font-size: 0.8125rem;
   background: #fef3c7;
   color: #92400e;
   padding: 0.1rem 0.4rem;
@@ -398,11 +404,11 @@ h1, h2, h3, h4, h5, h6 {
 /* Dialogues */
 .dialogue-box { display: flex; flex-direction: column; gap: 0.6rem; }
 .dialogue-bubble {
-  max-width: 90%;
-  padding: 0.6rem 0.85rem;
+  max-width: 92%;
+  padding: 0.75rem 1rem;
   border-radius: 1rem;
-  font-size: 0.85rem;
-  line-height: 1.45;
+  font-size: 0.9375rem;
+  line-height: 1.55;
 }
 .dialogue-bxc {
   align-self: flex-start;
@@ -417,13 +423,14 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom-right-radius: 0.25rem;
 }
 .dialogue-speaker {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--muted);
   display: block;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-sans);
 }
 .dialogue-line { color: #334155; font-style: italic; }
 
@@ -473,10 +480,10 @@ h1, h2, h3, h4, h5, h6 {
 .modal-play-controls { margin-top: 0.75rem; display: flex; gap: 0.5rem; justify-content: center; }
 
 .section-label {
-  font-size: 0.7rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--police-blue);
   margin-bottom: 0.5rem;
 }
@@ -505,9 +512,9 @@ h1, h2, h3, h4, h5, h6 {
   gap: 0.5rem;
 }
 .script-list li {
-  font-size: 0.85rem;
+  font-size: 0.9375rem;
   color: #475569;
-  padding: 0.6rem 0.75rem;
+  padding: 0.75rem 0.875rem;
   background: #f8fafc;
   border-left: 3px solid var(--accent-blue);
   border-radius: 0 0.375rem 0.375rem 0;
@@ -522,7 +529,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: start;
 }
 @media (min-width: 1024px) {
-  .simulator-wrap { grid-template-columns: 280px 1fr; }
+  .simulator-wrap { grid-template-columns: minmax(340px, 440px) 1fr; gap: 2.5rem; }
 }
 .simulator-phone-wrap {
   position: sticky;
@@ -537,14 +544,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 .simulator-select {
   flex: 1;
-  min-width: 200px;
-  padding: 0.5rem 0.75rem;
+  min-width: 220px;
+  padding: 0.625rem 0.875rem;
   border: 1px solid var(--border);
   border-radius: 0.5rem;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   background: white;
   color: var(--police-blue);
-  font-weight: 500;
+  font-weight: 600;
+  font-family: var(--font-sans);
 }
 
 /* Toast */
@@ -614,7 +622,7 @@ h1, h2, h3, h4, h5, h6 {
 .metric-value {
   font-size: 2rem;
   font-weight: 800;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-sans);
   background: linear-gradient(135deg, var(--police-blue), var(--accent-blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

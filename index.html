@@ -8,7 +8,20 @@
   <title>Bình Xăng Con x Trật Tự Xã Hội Phương Liệt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap&subset=vietnamese,latin-ext" rel="stylesheet" />
+  <link rel="stylesheet" href="css/fonts.css" />
+  <script>
+    document.documentElement.classList.add('fonts-loading');
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        document.documentElement.classList.remove('fonts-loading');
+        document.documentElement.classList.add('fonts-ready');
+      });
+    } else {
+      document.documentElement.classList.add('fonts-ready');
+      document.documentElement.classList.remove('fonts-loading');
+    }
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -19,8 +32,12 @@
             accent: { blue: '#3B82F6', peach: '#FB923C', coral: '#F472B6' },
           },
           fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            sans: ['Be Vietnam Pro', 'Segoe UI', 'Tahoma', 'sans-serif'],
+            display: ['Be Vietnam Pro', 'Segoe UI', 'sans-serif'],
+          },
+          fontSize: {
+            xs: ['0.8125rem', { lineHeight: '1.4' }],
+            sm: ['0.875rem', { lineHeight: '1.5' }],
           },
         },
       },
@@ -118,19 +135,19 @@
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10 reveal">
               <div class="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/10 text-center">
                 <p class="text-2xl font-bold text-white" data-count="10">0</p>
-                <p class="text-[10px] text-blue-200 mt-0.5">Tiểu phẩm</p>
+                <p class="text-xs text-blue-200 mt-0.5">Tiểu phẩm</p>
               </div>
               <div class="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/10 text-center">
                 <p class="text-2xl font-bold text-accent-peach" data-count="93" data-suffix="%">0</p>
-                <p class="text-[10px] text-blue-200 mt-0.5">Viral trung bình</p>
+                <p class="text-xs text-blue-200 mt-0.5">Viral trung bình</p>
               </div>
               <div class="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/10 text-center">
                 <p class="text-2xl font-bold text-white" data-count="50" data-suffix=" cảnh">0</p>
-                <p class="text-[10px] text-blue-200 mt-0.5">Storyboard</p>
+                <p class="text-xs text-blue-200 mt-0.5">Storyboard</p>
               </div>
               <div class="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/10 text-center">
                 <p class="text-2xl font-bold text-white">9:16</p>
-                <p class="text-[10px] text-blue-200 mt-0.5">TikTok ready</p>
+                <p class="text-xs text-blue-200 mt-0.5">TikTok ready</p>
               </div>
             </div>
           </div>
@@ -139,9 +156,9 @@
           <div class="flex flex-col items-center reveal">
             <div id="hero-phone" class="phone-switch-target"></div>
             <div class="mt-4 text-center">
-              <p id="hero-clip-title" class="text-white font-bold text-sm"></p>
-              <p id="hero-clip-hook" class="text-blue-200/80 text-xs mt-1 italic max-w-[220px]"></p>
-              <p class="text-white/40 text-[10px] mt-2">↻ Tự động chuyển clip mỗi 4 giây</p>
+              <p id="hero-clip-title" class="text-white font-bold text-base"></p>
+              <p id="hero-clip-hook" class="text-blue-200/80 text-sm mt-1 italic max-w-[280px] leading-relaxed"></p>
+              <p class="text-white/50 text-sm mt-2">Tự động chuyển clip mỗi 12 giây</p>
             </div>
           </div>
         </div>
@@ -219,9 +236,9 @@
         <div class="simulator-wrap reveal">
           <div class="simulator-phone-wrap">
             <div id="simulator-phone"></div>
-            <p id="sim-hook" class="text-center text-accent-peach font-semibold text-sm mt-4 italic"></p>
-            <p id="sim-title" class="text-center text-white font-bold mt-1"></p>
-            <p id="sim-meta" class="text-center text-blue-300/50 text-xs mt-1"></p>
+            <p id="sim-hook" class="text-center text-accent-peach font-semibold text-base mt-4 italic leading-relaxed"></p>
+            <p id="sim-title" class="text-center text-white font-bold text-lg mt-1"></p>
+            <p id="sim-meta" class="text-center text-blue-300/60 text-sm mt-1"></p>
           </div>
 
           <div class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-5 sm:p-6">
@@ -371,6 +388,8 @@
   </div>
 
   <script src="js/data.js"></script>
+  <script src="js/font-loader.js"></script>
+  <script src="js/canvas-scenes.js"></script>
   <script src="js/video-sim.js"></script>
   <script src="js/illustrations.js"></script>
   <script src="js/main.js"></script>

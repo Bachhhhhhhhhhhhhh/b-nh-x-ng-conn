@@ -3,16 +3,52 @@ function renderMiniScene(item) {
   const firstAnim = anims[0];
   const story = item.storyboard[0] || {};
   return `
-    <div class="mini-vp" data-mini-id="${item.id}">
-      <div class="vp-viewport">
-        <div class="vp-scene active">${renderAnimScene(firstAnim)}</div>
+    <div class="mini-vp" data-mini-id="${item.id}" data-mini-anim="${firstAnim}">
+      <div class="vp-viewport vp-viewport-canvas">
+        <canvas class="vp-canvas mini-canvas"></canvas>
         <div class="vp-grain"></div>
         <div class="vp-vignette"></div>
-        <div class="vp-subtitle show">${story.overlay || item.hook}</div>
-        <div style="position:absolute;top:6px;left:6px;z-index:25;background:rgba(239,68,68,0.8);color:#fff;font-size:7px;font-weight:800;padding:2px 5px;border-radius:3px">▶ PREVIEW</div>
+        <div class="vp-mini-label">Xem thử</div>
       </div>
     </div>
   `;
+}
+
+function initMiniCanvasPreviews(container) {
+  if (typeof CanvasScenes === 'undefined') return;
+  const root = container || document;
+  const setup = () => {
+  root.querySelectorAll('.mini-vp[data-mini-anim]').forEach((wrap) => {
+    const canvas = wrap.querySelector('.mini-canvas');
+    if (!canvas || canvas.dataset.ready) return;
+    const animId = wrap.dataset.miniAnim;
+    const item = CONTENT_ITEMS.find((i) => String(i.id) === wrap.dataset.miniId);
+    const meta = item ? { overlay: item.storyboard[0]?.overlay || item.hook } : {};
+
+    const draw = () => {
+      const parent = canvas.parentElement;
+      const w = parent.clientWidth || 280;
+      const h = parent.clientHeight || 200;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      const ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const t = (Date.now() % 3000) / 3000;
+      CanvasScenes.draw(animId, ctx, w, h, t, meta);
+    };
+
+    draw();
+    canvas.dataset.ready = '1';
+    if (!wrap._miniInterval) {
+      wrap._miniInterval = setInterval(draw, 80);
+    }
+  });
+  };
+  if (typeof FontLoader !== 'undefined') FontLoader.ensureLoaded().then(setup);
+  else setup();
 }
 
 function renderStoryboardTimeline(storyboard, activeIndex = 0) {
