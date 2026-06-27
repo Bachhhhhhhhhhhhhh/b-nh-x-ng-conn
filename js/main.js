@@ -183,8 +183,9 @@
         </section>
 
         <section class="info-panel info-panel-red">
-          <h4 class="section-label">⚖️ Căn cứ pháp lý</h4>
-          <p class="text-sm text-slate-700">${item.legalNote}</p>
+          <h4 class="section-label">⚖️ Căn cứ pháp luật CHXHCNVN</h4>
+          <p class="text-sm text-slate-700 mb-4 leading-relaxed">${item.legalNote}</p>
+          ${typeof renderLegalArticles === 'function' ? renderLegalArticles(item.legalArticles) : ''}
         </section>
 
         <section>
@@ -270,6 +271,9 @@
       `Thông điệp: ${item.message}`,
       `CTA: ${item.cta}`,
       `Pháp lý: ${item.legalNote}`,
+      item.legalArticles?.length
+        ? `Điều luật: ${formatLegalForExport(item.legalArticles)}`
+        : '',
       `Caption: ${item.sampleCaption}`,
       `Hashtag: ${item.hashtags}`,
     ].join('\n');
@@ -441,7 +445,7 @@
     const headers = [
       'STT', 'Tiêu đề', 'Phụ đề', 'Hook', 'Chủ đề', 'Thời lượng', 'Địa điểm',
       'Viral Score', 'Ý tưởng', 'Storyboard', 'Đối thoại', 'Kịch bản', 'Vai diễn BXC',
-      'Thông điệp', 'CTA', 'Pháp lý', 'Caption mẫu', 'Hashtag', 'Gợi ý sản xuất',
+      'Thông điệp', 'CTA', 'Pháp lý', 'Điều luật chi tiết', 'Caption mẫu', 'Hashtag', 'Gợi ý sản xuất',
     ];
     const escape = (val) => `"${String(val).replace(/"/g, '""')}"`;
 
@@ -452,6 +456,7 @@
         item.storyboard.map((s) => `[${s.time}] ${s.title}: ${s.desc}`).join(' | '),
         item.dialogues.map((d) => `${d.speaker}: "${d.line}"`).join(' | '),
         item.script.join(' | '), item.role, item.message, item.cta, item.legalNote,
+        formatLegalForExport(item.legalArticles || []),
         item.sampleCaption, item.hashtags, item.production,
       ].map(escape).join(',')
     );
