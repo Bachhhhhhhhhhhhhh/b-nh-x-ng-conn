@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bình Xăng Con x Trật Tự Xã Hội Phương Liệt — 10 tiểu phẩm hài hước với mô phỏng storyboard, kịch bản viral" />
+  <meta name="author" content="Bach Truong" />
+  <title>Bình Xăng Con x Trật Tự Xã Hội Phương Liệt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            police: { DEFAULT: '#0F2C59', light: '#1a4a8a', dark: '#0a1f3d' },
+            accent: { blue: '#3B82F6', peach: '#FB923C', coral: '#F472B6' },
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/60 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16 lg:h-[4.5rem]">
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-lg bg-police flex items-center justify-center shrink-0 group-hover:bg-police-light transition-colors">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div class="hidden sm:block">
+            <p class="font-display font-bold text-police text-sm leading-tight">Công an Phường Phương Liệt</p>
+            <p class="text-xs text-slate-500">Dự án Tuyên truyền Trật tự Xã hội</p>
+          </div>
+        </a>
+        <nav class="hidden lg:flex items-center gap-1">
+          <a href="#gioi-thieu" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-police rounded-md hover:bg-slate-100 transition-colors">Giới thiệu</a>
+          <a href="#mo-phong" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-police rounded-md hover:bg-slate-100 transition-colors">Mô phỏng clip</a>
+          <a href="#content" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-police rounded-md hover:bg-slate-100 transition-colors">10 Ý tưởng</a>
+          <a href="#huong-dan" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-police rounded-md hover:bg-slate-100 transition-colors">Hướng dẫn</a>
+          <a href="#tai-lieu" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-police rounded-md hover:bg-slate-100 transition-colors">Tải tài liệu</a>
+        </nav>
+        <div class="flex items-center gap-2">
+          <button data-download-excel class="btn btn-accent btn-sm hidden sm:inline-flex">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Tải Excel
+          </button>
+          <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md hover:bg-slate-100" aria-label="Mở menu" aria-expanded="false">
+            <svg class="w-6 h-6 text-police" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="mobile-menu lg:hidden border-t border-slate-100">
+        <nav class="py-3 flex flex-col gap-1">
+          <a href="#gioi-thieu" class="px-3 py-2 text-sm font-medium text-slate-600">Giới thiệu</a>
+          <a href="#mo-phong" class="px-3 py-2 text-sm font-medium text-slate-600">Mô phỏng clip</a>
+          <a href="#content" class="px-3 py-2 text-sm font-medium text-slate-600">10 Ý tưởng</a>
+          <a href="#huong-dan" class="px-3 py-2 text-sm font-medium text-slate-600">Hướng dẫn</a>
+          <a href="#tai-lieu" class="px-3 py-2 text-sm font-medium text-slate-600">Tải tài liệu</a>
+          <button data-download-excel class="btn btn-accent btn-sm mx-3 mt-2">Tải Excel</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero-pattern min-h-screen flex items-center pt-20 pb-16 relative overflow-hidden">
+      <div class="float-orb w-96 h-96 bg-accent-blue/25 top-10 right-0"></div>
+      <div class="float-orb w-64 h-64 bg-accent-peach/20 bottom-20 left-0" style="animation-delay:-3s"></div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 w-full">
+        <div class="hero-grid">
+          <div>
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-5 reveal">
+              <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
+              <span class="text-white/90 text-sm font-medium">10 tiểu phẩm • Hài hước • Mô phỏng storyboard</span>
+            </div>
+
+            <h1 class="font-display text-3xl sm:text-4xl lg:text-[3.4rem] font-extrabold text-white leading-[1.12] mb-5 reveal">
+              10 Tiểu Phẩm Hài Hước<br />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-orange-200">
+                Đấu Tranh Phòng Ngừa Vi Phạm Trật Tự Xã Hội
+              </span>
+            </h1>
+
+            <p class="text-lg text-blue-100/90 mb-1 reveal font-semibold">
+              Bình Xăng Con <span class="text-white/50">×</span> Công an Phường Phương Liệt
+            </p>
+            <p class="text-sm text-blue-200/60 mb-6 reveal">
+              Concept, kịch bản & mô phỏng trực quan — trình bày sẵn sàng cho lãnh đạo
+            </p>
+
+            <div class="author-badge mb-6 reveal">
+              ✦ Dự án do <span data-author class="text-accent-peach font-bold">Bach Truong</span> thực hiện
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 reveal">
+              <a href="#mo-phong" class="btn btn-lg bg-white text-police hover:bg-blue-50 font-semibold shadow-xl shadow-black/15">
+                ▶ Xem mô phỏng clip
+              </a>
+              <a href="#content" class="btn btn-lg border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm">
+                Xem 10 ý tưởng
+              </a>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10 reveal">
+              <div class="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/10 text-center">
+                <p class="text-2xl font-bold text-white" data-count="10">0</p>
+                <p class="text-[10px] text-blue-200 mt-0.5">Tiểu phẩm</p>
+              </div>
+              <div class="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/10 text-center">
+                <p class="text-2xl font-bold text-accent-peach" data-count="93" data-suffix="%">0</p>
+                <p class="text-[10px] text-blue-200 mt-0.5">Viral trung bình</p>
+              </div>
+              <div class="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/10 text-center">
+                <p class="text-2xl font-bold text-white" data-count="50" data-suffix=" cảnh">0</p>
+                <p class="text-[10px] text-blue-200 mt-0.5">Storyboard</p>
+              </div>
+              <div class="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/10 text-center">
+                <p class="text-2xl font-bold text-white">9:16</p>
+                <p class="text-[10px] text-blue-200 mt-0.5">TikTok ready</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero phone preview -->
+          <div class="flex flex-col items-center reveal">
+            <div id="hero-phone" class="phone-switch-target"></div>
+            <div class="mt-4 text-center">
+              <p id="hero-clip-title" class="text-white font-bold text-sm"></p>
+              <p id="hero-clip-hook" class="text-blue-200/80 text-xs mt-1 italic max-w-[220px]"></p>
+              <p class="text-white/40 text-[10px] mt-2">↻ Tự động chuyển clip mỗi 4 giây</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GIỚI THIỆU -->
+    <section id="gioi-thieu" class="py-16 sm:py-24 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto text-center mb-14 reveal">
+          <span class="badge badge-blue mb-4">Tầm nhìn dự án</span>
+          <h2 class="font-display text-2xl sm:text-4xl font-bold text-police mb-5">
+            Tuyên truyền không nhàm chán —<br class="hidden sm:block" /> Cười được, nhớ được, chia sẻ được
+          </h2>
+          <p class="text-slate-600 leading-relaxed text-base sm:text-lg">
+            Thay vì bản tin khô khan, dự án <strong class="text-police">"Bình Xăng Con × Phương Liệt"</strong> biến 10 tình huống vi phạm trật tự xã hội thành <em>tiểu phẩm 15–45 giây</em> — có hook viral, storyboard chi tiết, đối thoại mẫu và mô phỏng trực quan. Mỗi clip vừa giải trí vừa truyền tải thông điệp pháp luật nghiêm túc.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
+          <div class="metric-card reveal">
+            <p class="metric-value" data-count="200" data-suffix="K+">0</p>
+            <p class="text-sm text-slate-500 mt-1">Lượt xem dự kiến / tháng</p>
+          </div>
+          <div class="metric-card reveal">
+            <p class="metric-value" data-count="4">0</p>
+            <p class="text-sm text-slate-500 mt-1">Nhóm chủ đề trọng tâm</p>
+          </div>
+          <div class="metric-card reveal">
+            <p class="metric-value" data-count="100" data-suffix="%">0</p>
+            <p class="text-sm text-slate-500 mt-1">Kịch bản đã duyệt format</p>
+          </div>
+          <div class="metric-card reveal">
+            <p class="metric-value">0đ</p>
+            <p class="text-sm text-slate-500 mt-1">Chi phí sản xuất tối thiểu</p>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-6">
+          <div class="card-shadcn p-6 reveal">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-4 text-2xl">🎬</div>
+            <h3 class="font-display font-bold text-police mb-2">Storyboard từng cảnh</h3>
+            <p class="text-sm text-slate-500">5 cảnh/clip với timecode, text overlay, twist — sẵn sàng đưa vào sản xuất.</p>
+          </div>
+          <div class="card-shadcn p-6 reveal">
+            <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center mb-4 text-2xl">💬</div>
+            <h3 class="font-display font-bold text-police mb-2">Đối thoại viral</h3>
+            <p class="text-sm text-slate-500">Câu thoại hook được thiết kế để BXC improvise — dễ thành meme, dễ nhớ.</p>
+          </div>
+          <div class="card-shadcn p-6 reveal">
+            <div class="w-12 h-12 rounded-xl bg-pink-50 flex items-center justify-center mb-4 text-2xl">📱</div>
+            <h3 class="font-display font-bold text-police mb-2">Mô phỏng TikTok</h3>
+            <p class="text-sm text-slate-500">Xem trước clip dạng điện thoại — lãnh đạo hình dung ngay sản phẩm cuối.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÔ PHỎNG CLIP -->
+    <section id="mo-phong" class="py-16 sm:py-24 bg-gradient-to-b from-slate-900 to-police relative overflow-hidden">
+      <div class="float-orb w-80 h-80 bg-accent-blue/20 top-0 left-1/4"></div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="text-center mb-12 reveal">
+          <span class="inline-flex items-center gap-1.5 bg-red-500/20 text-red-300 text-xs font-bold px-3 py-1 rounded-full border border-red-500/30 mb-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span> LIVE SIMULATOR
+          </span>
+          <h2 class="font-display text-2xl sm:text-4xl font-bold text-white mb-3">
+            Mô Phỏng Clip — Xem Trước Khi Quay
+          </h2>
+          <p class="text-blue-200/70 max-w-2xl mx-auto">
+            Chọn tiểu phẩm, nhấn phát — storyboard chạy tự động trên khung điện thoại TikTok. Lãnh đạo thấy ngay clip sẽ trông như thế nào trên mạng xã hội.
+          </p>
+        </div>
+
+        <div class="simulator-wrap reveal">
+          <div class="simulator-phone-wrap">
+            <div id="simulator-phone"></div>
+            <p id="sim-hook" class="text-center text-accent-peach font-semibold text-sm mt-4 italic"></p>
+            <p id="sim-title" class="text-center text-white font-bold mt-1"></p>
+            <p id="sim-meta" class="text-center text-blue-300/50 text-xs mt-1"></p>
+          </div>
+
+          <div class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-5 sm:p-6">
+            <div class="simulator-controls">
+              <select id="simulator-select" class="simulator-select"></select>
+              <button class="btn btn-primary btn-sm" id="sim-play">▶ Phát</button>
+              <button class="btn btn-ghost btn-sm text-white border border-white/20" id="sim-pause" style="display:none">⏸ Dừng</button>
+              <button class="btn btn-ghost btn-sm text-white/70" id="sim-prev">← Trước</button>
+              <button class="btn btn-ghost btn-sm text-white/70" id="sim-next">Sau →</button>
+            </div>
+            <h3 class="text-white/80 text-sm font-semibold mb-3">Timeline storyboard</h3>
+            <div id="simulator-timeline" class="bg-white rounded-xl p-4"></div>
+            <p class="text-blue-300/40 text-xs mt-3">💡 Nhấn vào từng cảnh để nhảy đến frame đó</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 CONTENT -->
+    <section id="content" class="py-16 sm:py-24 bg-slate-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 reveal">
+          <span class="badge badge-peach mb-4">Bộ sưu tập premium</span>
+          <h2 class="font-display text-2xl sm:text-4xl font-bold text-police mb-3">
+            10 Tiểu Phẩm Tuyên Truyền
+          </h2>
+          <p class="text-slate-500 max-w-2xl mx-auto">
+            Mỗi card có preview minh họa, điểm viral, hook câu và nút mở mô phỏng storyboard đầy đủ.
+          </p>
+        </div>
+        <div id="filter-tabs" class="flex gap-2 overflow-x-auto pb-2 mb-8 reveal"></div>
+        <div id="content-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <!-- HƯỚNG DẪN -->
+    <section id="huong-dan" class="py-16 sm:py-24 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-12 reveal">
+          <span class="badge badge-blue mb-4">Triển khai</span>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-police mb-3">Hướng Dẫn Sản Xuất & Triển Khai</h2>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div class="card-shadcn p-6 sm:p-8 reveal">
+            <h3 class="font-display font-bold text-lg text-police mb-5">🎥 Công thức clip viral</h3>
+            <ul class="space-y-4 text-sm">
+              <li class="flex gap-3"><span class="text-accent-blue font-bold">HOOK</span><span class="text-slate-600">3 giây đầu — câu gây sốc hoặc tình huống lạ. Text overlay to, đậm.</span></li>
+              <li class="flex gap-3"><span class="text-accent-blue font-bold">BODY</span><span class="text-slate-600">15–30 giây — diễn hài, nhịp nhanh, cut mỗi 2–3 giây.</span></li>
+              <li class="flex gap-3"><span class="text-accent-blue font-bold">TWIST</span><span class="text-slate-600">Bất ngờ cuối clip — công an xuất hiện, bị bắt, hoặc plot twist.</span></li>
+              <li class="flex gap-3"><span class="text-accent-blue font-bold">OUTRO</span><span class="text-slate-600">2–3 giây logo Công an Phường Phương Liệt + hotline 113.</span></li>
+            </ul>
+          </div>
+          <div class="card-shadcn p-6 sm:p-8 reveal">
+            <h3 class="font-display font-bold text-lg text-police mb-5">🤝 Phối hợp Bình Xăng Con</h3>
+            <ul class="space-y-4 text-sm text-slate-600">
+              <li>✅ Duyệt kịch bản trước khi quay — đảm bảo đúng pháp luật</li>
+              <li>✅ BXC improvise trên khung đối thoại có sẵn — tự nhiên, không gượng</li>
+              <li>✅ Đăng đồng thời fanpage Công an + kênh BXC — tối đa reach</li>
+              <li>✅ 2–3 clip/tuần, xen kẽ chủ đề — giữ nhịp, không spam</li>
+              <li>✅ Báo cáo KPI hàng tháng: views, shares, comments, hotline</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT STEPS -->
+    <section class="py-16 sm:py-24 bg-gradient-to-br from-police via-police-light to-police">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 reveal">
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-white mb-3">Next Step — Lộ Trình Triển Khai</h2>
+          <p class="text-blue-200/70">4 bước từ phê duyệt đến viral</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/10 reveal">
+            <div class="step-number mb-3">1</div>
+            <h3 class="font-bold text-white text-sm mb-2">Phê duyệt concept</h3>
+            <p class="text-xs text-blue-200/70">Lãnh đạo duyệt 10 ý tưởng + storyboard trên website này.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/10 reveal">
+            <div class="step-number mb-3">2</div>
+            <h3 class="font-bold text-white text-sm mb-2">Ký kết BXC</h3>
+            <p class="text-xs text-blue-200/70">Thống nhất lịch, địa điểm, quyền hình ảnh, hashtag.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/10 reveal">
+            <div class="step-number mb-3">3</div>
+            <h3 class="font-bold text-white text-sm mb-2">Quay batch 1</h3>
+            <p class="text-xs text-blue-200/70">3–4 clip đầu, duyệt trước khi đăng. Chỉnh theo feedback.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/10 reveal">
+            <div class="step-number mb-3">4</div>
+            <h3 class="font-bold text-white text-sm mb-2">Đăng & đo lường</h3>
+            <p class="text-xs text-blue-200/70">Triển khai đa kênh, báo cáo KPI sau 30 ngày.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TẢI TÀI LIỆU -->
+    <section id="tai-lieu" class="py-16 bg-slate-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center reveal">
+        <h2 class="font-display text-xl font-bold text-police mb-3">Tải Bộ Tài Liệu Đầy Đủ</h2>
+        <p class="text-slate-500 text-sm mb-6 max-w-lg mx-auto">
+          File CSV (mở bằng Excel): 10 kịch bản, storyboard, đối thoại, hook, caption, hashtag, căn cứ pháp lý.
+        </p>
+        <button data-download-excel class="btn btn-primary btn-lg">📥 Tải file Excel chi tiết</button>
+        <p class="text-xs text-slate-400 mt-4">Biên soạn bởi <span data-author class="font-medium">Bach Truong</span></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-police-dark py-12 text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+        <div>
+          <p class="font-display font-bold text-lg">Công an Phường Phương Liệt</p>
+          <p class="text-sm text-blue-300/60">Quận Thanh Xuân, Hà Nội</p>
+          <p class="text-sm text-blue-200/50 max-w-sm mt-3">
+            Dự án tuyên truyền trật tự xã hội × KOL Bình Xăng Con — cộng đồng an toàn, văn minh.
+          </p>
+        </div>
+        <div class="text-sm text-blue-200/50">
+          <p>Dự án do <span data-author class="text-white font-semibold">Bach Truong</span> thực hiện</p>
+          <p class="mt-1">Concept · Kịch bản · Mô phỏng · Website</p>
+          <p class="mt-2">Hotline: <span class="text-accent-peach font-bold">113</span></p>
+          <button data-download-excel class="btn btn-secondary btn-sm mt-4 text-white border-white/20 hover:bg-white/10">Tải Excel</button>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-8 pt-6 text-center text-xs text-blue-300/40">
+        © 2026 Công an Phường Phương Liệt — Bình Xăng Con × Trật Tự Xã Hội Phương Liệt · Bach Truong
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div id="modal-overlay" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-content" role="document">
+      <div class="sticky top-0 bg-white/95 backdrop-blur border-b border-slate-100 px-6 py-4 flex items-center justify-between z-10 rounded-t-2xl">
+        <span class="text-sm font-semibold text-police">📋 Chi tiết & Mô phỏng storyboard</span>
+        <button id="modal-close" class="p-2 rounded-lg hover:bg-slate-100" aria-label="Đóng">
+          <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="modal-body" class="px-6 py-6"></div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/illustrations.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
