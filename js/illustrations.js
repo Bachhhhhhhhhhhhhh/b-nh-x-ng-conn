@@ -49,6 +49,11 @@ function initMiniCanvasPreviews(container) {
   };
   if (typeof FontLoader !== 'undefined') FontLoader.ensureLoaded().then(setup);
   else setup();
+
+  if (!window._miniFontListener) {
+    window._miniFontListener = true;
+    window.addEventListener('fonts-ready', () => setup());
+  }
 }
 
 function renderStoryboardTimeline(storyboard, activeIndex = 0) {

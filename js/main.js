@@ -523,8 +523,6 @@
 
   async function init() {
     if (typeof FontLoader !== 'undefined') await FontLoader.ensureLoaded();
-    document.documentElement.classList.add('fonts-ready');
-    document.documentElement.classList.remove('fonts-loading');
     renderFilters();
     renderCards();
     initScrollReveal();

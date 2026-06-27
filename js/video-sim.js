@@ -269,7 +269,7 @@ class VideoPlayer {
   destroy() {
     this.pause();
     this._resizeObs?.disconnect();
-    if (this.root?.parentNode) this.root.parentNode.innerHTML = '';
+    if (this.root?.parentNode) this.root.remove();
     this.root = null;
     this.canvas = null;
     this.ctx = null;
@@ -294,3 +294,11 @@ function destroyPlayer(key) {
     _players.delete(key);
   }
 }
+
+function redrawAllPlayers() {
+  _players.forEach((player) => player._drawCanvas?.());
+}
+
+window.addEventListener('fonts-ready', () => {
+  redrawAllPlayers();
+});

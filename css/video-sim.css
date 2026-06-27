@@ -387,14 +387,14 @@
 .anim-cctv::before {
   content: 'CCTV REC ●';
   position: absolute; top: 4px; left: 6px;
-  font-size: 8px; color: #ef4444; font-weight: 800;
-  font-family: monospace;
+  font-size: 0.6875rem; color: #ef4444; font-weight: 800;
+  font-family: var(--font-sans);
 }
 .anim-cctv::after {
   content: attr(data-time);
   position: absolute; bottom: 4px; right: 6px;
-  font-size: 8px; color: rgba(255,255,255,0.6);
-  font-family: monospace;
+  font-size: 0.6875rem; color: rgba(255,255,255,0.6);
+  font-family: var(--font-sans);
 }
 
 /* Characters */
@@ -606,8 +606,9 @@
   50%{transform:scale(1.05);box-shadow:0 0 20px rgba(59,130,246,0.4)}
 }
 .anim-outro-text {
-  font-size: 10px; font-weight: 800; color: #fff;
+  font-size: 0.8125rem; font-weight: 800; color: #fff;
   text-align: center; line-height: 1.4;
+  font-family: var(--font-sans);
 }
 .anim-outro-hotline {
   font-size: 18px; font-weight: 900; color: #fbbf24;
@@ -701,10 +702,11 @@
 .anim-hook-text {
   position: absolute; top: 20%; left: 8px; right: 8px;
   text-align: center;
-  font-size: 13px; font-weight: 900; color: #fff;
+  font-size: 0.875rem; font-weight: 900; color: #fff;
   text-shadow: 0 0 20px rgba(251,146,60,0.8);
   animation: hook-flash 2s ease infinite;
   z-index: 6;
+  font-family: var(--font-sans);
 }
 @keyframes hook-flash {
   0%,100%{opacity:1;transform:scale(1)}

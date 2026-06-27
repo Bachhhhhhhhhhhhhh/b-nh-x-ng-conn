@@ -47,8 +47,9 @@ const CanvasScenes = (() => {
     ctx.setLineDash([]);
   }
 
-  function person(ctx, x, y, scale, shirt, label) {
+  function person(ctx, x, y, scale, shirt, label, canvasW) {
     const s = scale;
+    const cw = canvasW || ctx.canvas?.clientWidth || 280;
     ctx.fillStyle = '#FCD34D';
     ctx.beginPath();
     ctx.arc(x, y - 22 * s, 10 * s, 0, Math.PI * 2);
@@ -58,7 +59,7 @@ const CanvasScenes = (() => {
     ctx.fillRect(x - 18 * s, y - 8 * s, 8 * s, 18 * s);
     ctx.fillRect(x + 10 * s, y - 8 * s, 8 * s, 18 * s);
     if (label) {
-      const lw = fs(ctx.canvas?.clientWidth || 280, 12);
+      const lw = fs(cw, 13);
       if (FL) {
         FL.drawText(ctx, label, x, y + 32 * s, { weight: 600, size: lw, stroke: true });
       } else {
@@ -100,7 +101,7 @@ const CanvasScenes = (() => {
     ctx.strokeStyle = COLORS.yellow;
     ctx.lineWidth = 4;
     ctx.stroke();
-    const badgeSize = fs(ctx.canvas?.clientWidth || 280, 26);
+    const badgeSize = fs(w, 26);
     ctx.fillStyle = '#fff';
     ctx.font = font(800, badgeSize);
     ctx.textAlign = 'center';
