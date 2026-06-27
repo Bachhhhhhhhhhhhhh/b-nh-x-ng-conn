@@ -4,10 +4,10 @@
   let activeFilter = 'all';
   let currentModalItem = null;
   let simulatorIndex = 0;
-  let simulatorScene = 0;
-  let simulatorTimer = null;
   let heroIndex = 0;
-  let heroTimer = null;
+  let heroPlayer = null;
+  let simPlayer = null;
+  let heroClipTimer = null;
 
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
@@ -33,7 +33,7 @@
         (item) => `
       <article class="content-card card-shadcn overflow-hidden reveal visible cursor-pointer group" data-id="${item.id}" role="button" tabindex="0">
         <div class="card-preview-wrap">
-          ${renderMiniScene(item.scene, item.hook, false)}
+          ${renderMiniScene(item)}
           <div class="card-preview-badge">
             <span class="badge ${badgeClassMap[item.category]}">${item.categoryLabel}</span>
             <span class="viral-pill">🔥 ${item.viralScore}%</span>
@@ -108,20 +108,13 @@
     const item = CONTENT_ITEMS.find((i) => i.id === id);
     if (!item) return;
     currentModalItem = item;
-    let modalScene = 0;
 
     const body = $('#modal-body');
     body.innerHTML = `
       <div class="modal-hero-grid">
         <div class="modal-phone-col">
-          <div id="modal-phone">${renderPhoneMockup(item, 0, true)}</div>
-          <div class="modal-play-controls">
-            <button class="btn btn-primary btn-sm" id="modal-play-btn">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              Phát mô phỏng
-            </button>
-            <button class="btn btn-ghost btn-sm" id="modal-pause-btn" style="display:none">⏸ Tạm dừng</button>
-          </div>
+          <div id="modal-phone"></div>
+          <p class="text-xs text-slate-400 text-center mt-2">▶ Nhấn play trên video · Click timeline để nhảy cảnh</p>
         </div>
         <div class="modal-info-col">
           <div class="flex items-start gap-3 mb-4">
@@ -208,44 +201,26 @@
       </div>
     `;
 
-    let modalTimer = null;
-    let playing = false;
-
-    function updateModalScene(idx) {
-      modalScene = idx;
-      $('#modal-phone').innerHTML = renderPhoneMockup(item, idx, playing);
-      $('#modal-storyboard').innerHTML = renderStoryboardTimeline(item.storyboard, idx);
-    }
-
-    function playModal() {
-      playing = true;
-      $('#modal-play-btn').style.display = 'none';
-      $('#modal-pause-btn').style.display = 'inline-flex';
-      modalScene = 0;
-      updateModalScene(0);
-      modalTimer = setInterval(() => {
-        modalScene = (modalScene + 1) % item.storyboard.length;
-        updateModalScene(modalScene);
-      }, 2200);
-    }
-
-    function pauseModal() {
-      playing = false;
-      clearInterval(modalTimer);
-      $('#modal-play-btn').style.display = 'inline-flex';
-      $('#modal-pause-btn').style.display = 'none';
-      updateModalScene(modalScene);
-    }
-
-    $('#modal-play-btn')?.addEventListener('click', playModal);
-    $('#modal-pause-btn')?.addEventListener('click', pauseModal);
-
-    $$('#modal-storyboard .storyboard-frame').forEach((frame) => {
-      frame.addEventListener('click', () => {
-        pauseModal();
-        updateModalScene(parseInt(frame.dataset.index, 10));
-      });
+    destroyPlayer('modal-phone');
+    const modalPlayer = mountVideoPlayer('modal-phone', item, {
+      loop: true,
+      autoplay: true,
+      onSceneChange: (idx) => {
+        const tl = $('#modal-storyboard');
+        if (tl) tl.innerHTML = renderStoryboardTimeline(item.storyboard, idx);
+        bindTimelineClicks(modalPlayer);
+      },
     });
+
+    function bindTimelineClicks(player) {
+      $$('#modal-storyboard .storyboard-frame').forEach((frame) => {
+        frame.addEventListener('click', () => {
+          player.goToScene(parseInt(frame.dataset.index, 10));
+          player.play();
+        });
+      });
+    }
+    bindTimelineClicks(modalPlayer);
 
     $('.copy-script-btn')?.addEventListener('click', copyScript);
     $('.copy-hashtag-btn')?.addEventListener('click', copyHashtags);
@@ -260,12 +235,12 @@
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    overlay._pauseModal = pauseModal;
+    overlay._pauseModal = () => destroyPlayer('modal-phone');
   }
 
   function closeModal() {
     const overlay = $('#modal-overlay');
-    overlay._pauseModal?.();
+    destroyPlayer('modal-phone');
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
@@ -349,109 +324,101 @@
     });
   }
 
-  function initSimulator() {
-    const phoneEl = $('#simulator-phone');
+  function mountSimPlayer() {
+    const item = CONTENT_ITEMS[simulatorIndex];
     const timelineEl = $('#simulator-timeline');
+    destroyPlayer('simulator-phone');
+    simPlayer = mountVideoPlayer('simulator-phone', item, {
+      loop: true,
+      autoplay: true,
+      onSceneChange: (idx) => {
+        if (timelineEl) timelineEl.innerHTML = renderStoryboardTimeline(item.storyboard, idx);
+        $$('#simulator-timeline .storyboard-frame').forEach((f) => {
+          f.addEventListener('click', () => {
+            simPlayer?.goToScene(parseInt(f.dataset.index, 10));
+            simPlayer?.play();
+          });
+        });
+      },
+    });
+    if (timelineEl) timelineEl.innerHTML = renderStoryboardTimeline(item.storyboard, 0);
+    $('#sim-hook').textContent = item.hook;
+    $('#sim-title').textContent = item.title;
+    $('#sim-meta').textContent = `${item.duration} · ${item.location} · Viral ${item.viralScore}%`;
+    $$('#simulator-timeline .storyboard-frame').forEach((f) => {
+      f.addEventListener('click', () => {
+        simPlayer?.goToScene(parseInt(f.dataset.index, 10));
+        simPlayer?.play();
+      });
+    });
+  }
+
+  function initSimulator() {
     const selector = $('#simulator-select');
     const playBtn = $('#sim-play');
     const pauseBtn = $('#sim-pause');
-    if (!phoneEl) return;
+    if (!selector) return;
 
     selector.innerHTML = CONTENT_ITEMS.map(
       (item) => `<option value="${item.id}">${String(item.id).padStart(2, '0')}. ${item.title}</option>`
     ).join('');
 
-    function getItem() {
-      return CONTENT_ITEMS[simulatorIndex];
-    }
-
-    function renderSim() {
-      const item = getItem();
-      phoneEl.innerHTML = renderPhoneMockup(item, simulatorScene, !!simulatorTimer);
-      timelineEl.innerHTML = renderStoryboardTimeline(item.storyboard, simulatorScene);
-      $('#sim-hook').textContent = item.hook;
-      $('#sim-title').textContent = item.title;
-      $('#sim-meta').textContent = `${item.duration} · ${item.location} · Viral ${item.viralScore}%`;
-
-      $$('#simulator-timeline .storyboard-frame').forEach((f) => {
-        f.addEventListener('click', () => {
-          stopSim();
-          simulatorScene = parseInt(f.dataset.index, 10);
-          renderSim();
-        });
-      });
-    }
-
-    function startSim() {
-      if (simulatorTimer) return;
+    mountSimPlayer();
+    if (playBtn && pauseBtn) {
       playBtn.style.display = 'none';
       pauseBtn.style.display = 'inline-flex';
-      simulatorTimer = setInterval(() => {
-        const item = getItem();
-        simulatorScene = (simulatorScene + 1) % item.storyboard.length;
-        renderSim();
-      }, 2500);
-      renderSim();
     }
 
-    function stopSim() {
-      clearInterval(simulatorTimer);
-      simulatorTimer = null;
+    playBtn?.addEventListener('click', () => {
+      simPlayer?.play();
+      playBtn.style.display = 'none';
+      pauseBtn.style.display = 'inline-flex';
+    });
+    pauseBtn?.addEventListener('click', () => {
+      simPlayer?.pause();
       playBtn.style.display = 'inline-flex';
       pauseBtn.style.display = 'none';
-      renderSim();
-    }
-
-    selector.addEventListener('change', () => {
-      stopSim();
-      simulatorIndex = CONTENT_ITEMS.findIndex((i) => i.id === parseInt(selector.value, 10));
-      simulatorScene = 0;
-      renderSim();
     });
 
-    playBtn?.addEventListener('click', startSim);
-    pauseBtn?.addEventListener('click', stopSim);
+    selector.addEventListener('change', () => {
+      simulatorIndex = CONTENT_ITEMS.findIndex((i) => i.id === parseInt(selector.value, 10));
+      mountSimPlayer();
+      playBtn.style.display = 'none';
+      pauseBtn.style.display = 'inline-flex';
+    });
 
     $('#sim-prev')?.addEventListener('click', () => {
-      stopSim();
       simulatorIndex = (simulatorIndex - 1 + CONTENT_ITEMS.length) % CONTENT_ITEMS.length;
-      simulatorScene = 0;
       selector.value = CONTENT_ITEMS[simulatorIndex].id;
-      renderSim();
+      mountSimPlayer();
     });
 
     $('#sim-next')?.addEventListener('click', () => {
-      stopSim();
       simulatorIndex = (simulatorIndex + 1) % CONTENT_ITEMS.length;
-      simulatorScene = 0;
       selector.value = CONTENT_ITEMS[simulatorIndex].id;
-      renderSim();
+      mountSimPlayer();
     });
-
-    renderSim();
-    startSim();
   }
 
   function initHeroPhone() {
     const el = $('#hero-phone');
     if (!el) return;
 
-    function render() {
+    function mountHero() {
       const item = CONTENT_ITEMS[heroIndex];
-      el.innerHTML = renderPhoneMockup(item, 0, true);
+      destroyPlayer('hero-phone');
+      el.classList.add('phone-switching');
+      heroPlayer = mountVideoPlayer(el, item, { loop: true, autoplay: true });
       $('#hero-clip-title').textContent = item.title;
       $('#hero-clip-hook').textContent = item.hook;
+      setTimeout(() => el.classList.remove('phone-switching'), 400);
     }
 
-    render();
-    heroTimer = setInterval(() => {
+    mountHero();
+    heroClipTimer = setInterval(() => {
       heroIndex = (heroIndex + 1) % CONTENT_ITEMS.length;
-      el.classList.add('phone-switching');
-      setTimeout(() => {
-        render();
-        el.classList.remove('phone-switching');
-      }, 300);
-    }, 4000);
+      mountHero();
+    }, 12000);
   }
 
   function initHeroStats() {

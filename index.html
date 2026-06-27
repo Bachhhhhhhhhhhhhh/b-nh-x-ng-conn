@@ -27,6 +27,7 @@
     };
   </script>
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/video-sim.css" />
 </head>
 <body class="antialiased">
 
@@ -208,10 +209,10 @@
             <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span> LIVE SIMULATOR
           </span>
           <h2 class="font-display text-2xl sm:text-4xl font-bold text-white mb-3">
-            Mô Phỏng Clip — Xem Trước Khi Quay
+            Mô Phỏng Video — Phát Như Clip Thật
           </h2>
           <p class="text-blue-200/70 max-w-2xl mx-auto">
-            Chọn tiểu phẩm, nhấn phát — storyboard chạy tự động trên khung điện thoại TikTok. Lãnh đạo thấy ngay clip sẽ trông như thế nào trên mạng xã hội.
+            Video mô phỏng 5 cảnh/clip với nhân vật chuyển động, hiệu ứng phim, phụ đề, thanh tiến trình và điều khiển Play/Pause — giống xem TikTok thật trên điện thoại.
           </p>
         </div>
 
@@ -233,7 +234,7 @@
             </div>
             <h3 class="text-white/80 text-sm font-semibold mb-3">Timeline storyboard</h3>
             <div id="simulator-timeline" class="bg-white rounded-xl p-4"></div>
-            <p class="text-blue-300/40 text-xs mt-3">💡 Nhấn vào từng cảnh để nhảy đến frame đó</p>
+            <p class="text-blue-300/40 text-xs mt-3">💡 Nhấn ▶ trên video để phát · Click timeline để nhảy cảnh · Hiệu ứng REC + phụ đề tự động</p>
           </div>
         </div>
       </div>
@@ -360,7 +361,7 @@
   <div id="modal-overlay" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal-content" role="document">
       <div class="sticky top-0 bg-white/95 backdrop-blur border-b border-slate-100 px-6 py-4 flex items-center justify-between z-10 rounded-t-2xl">
-        <span class="text-sm font-semibold text-police">📋 Chi tiết & Mô phỏng storyboard</span>
+        <span class="text-sm font-semibold text-police">📋 Chi tiết & Mô phỏng video</span>
         <button id="modal-close" class="p-2 rounded-lg hover:bg-slate-100" aria-label="Đóng">
           <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
@@ -370,6 +371,7 @@
   </div>
 
   <script src="js/data.js"></script>
+  <script src="js/video-sim.js"></script>
   <script src="js/illustrations.js"></script>
   <script src="js/main.js"></script>
 </body>
