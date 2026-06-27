@@ -177,13 +177,14 @@ const CanvasScenes = (() => {
     ctx.textAlign = 'center';
     ctx.fillText('🛡', 0, 8);
     ctx.restore();
-    const titleSize = fs(w, 14);
-    const msgSize = fs(w, 12);
+    const titleSize = fs(w, 13);
+    const msgSize = fs(w, (title || '').length > 42 ? 10 : 12);
     const hotSize = fs(w, 20);
+    const legalY = (title || '').length > 42 ? h * 0.58 : h * 0.6;
     if (FL) {
-      FL.drawText(ctx, 'CÔNG AN PHƯỜNG PHƯƠNG LIỆT', w / 2, h * 0.5, { weight: 800, size: titleSize, maxW: w - 24 });
-      FL.drawText(ctx, title, w / 2, h * 0.6, { weight: 600, size: msgSize, color: '#BFDBFE', maxW: w - 24 });
-      FL.drawText(ctx, hotline || '📞 113', w / 2, h * 0.78, { weight: 800, size: hotSize, color: COLORS.yellow, stroke: false });
+      FL.drawText(ctx, 'CÔNG AN PHƯỜNG PHƯƠNG LIỆT', w / 2, h * 0.48, { weight: 800, size: titleSize, maxW: w - 20 });
+      FL.drawText(ctx, title, w / 2, legalY, { weight: 600, size: msgSize, color: '#BFDBFE', maxW: w - 16, maxLines: 5 });
+      FL.drawText(ctx, hotline || '📞 113', w / 2, h * 0.8, { weight: 800, size: hotSize, color: COLORS.yellow, stroke: false });
     } else {
       ctx.fillStyle = '#fff';
       ctx.font = font(800, titleSize);

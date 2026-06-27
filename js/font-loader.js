@@ -80,7 +80,7 @@ const FontLoader = (() => {
     ctx.textAlign = align;
     ctx.textBaseline = baseline;
 
-    const lines = maxW ? wrapVN(ctx, text, maxW) : [text];
+    const lines = maxW ? wrapVN(ctx, text, maxW, opts.maxLines || 4) : [text];
     const lh = size * 1.38;
     const startY = baseline === 'top' ? y : y - ((lines.length - 1) * lh) / 2;
 

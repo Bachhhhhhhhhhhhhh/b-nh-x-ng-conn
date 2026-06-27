@@ -24,10 +24,20 @@
     return CONTENT_ITEMS.filter((item) => item.category === activeFilter);
   }
 
+  function clearMiniCanvasIntervals(root) {
+    (root || document).querySelectorAll('.mini-vp').forEach((wrap) => {
+      if (wrap._miniInterval) {
+        clearInterval(wrap._miniInterval);
+        wrap._miniInterval = null;
+      }
+    });
+  }
+
   function renderCards() {
     const grid = $('#content-grid');
     const items = getFilteredItems();
 
+    clearMiniCanvasIntervals(grid);
     grid.innerHTML = items
       .map(
         (item) => `
@@ -70,7 +80,7 @@
   }
 
   function bindCardEvents() {
-    $$('#content-grid .content-card, .view-detail-btn').forEach((el) => {
+    $$('#content-grid .content-card, #content-grid .view-detail-btn').forEach((el) => {
       const handler = (e) => {
         if (e.target.closest('.view-detail-btn')) e.stopPropagation();
         const id = parseInt(el.dataset.id || el.closest('[data-id]')?.dataset.id, 10);
@@ -210,19 +220,18 @@
       onSceneChange: (idx) => {
         const tl = $('#modal-storyboard');
         if (tl) tl.innerHTML = renderStoryboardTimeline(item.storyboard, idx);
-        bindTimelineClicks(modalPlayer);
       },
     });
 
-    function bindTimelineClicks(player) {
-      $$('#modal-storyboard .storyboard-frame').forEach((frame) => {
-        frame.addEventListener('click', () => {
-          player.goToScene(parseInt(frame.dataset.index, 10));
-          player.play();
-        });
-      });
+    const modalStoryboard = $('#modal-storyboard');
+    if (modalStoryboard) {
+      modalStoryboard.onclick = (e) => {
+        const frame = e.target.closest('.storyboard-frame');
+        if (!frame) return;
+        modalPlayer.goToScene(parseInt(frame.dataset.index, 10));
+        modalPlayer.play();
+      };
     }
-    bindTimelineClicks(modalPlayer);
 
     $('.copy-script-btn')?.addEventListener('click', copyScript);
     $('.copy-hashtag-btn')?.addEventListener('click', copyHashtags);
@@ -237,7 +246,6 @@
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    overlay._pauseModal = () => destroyPlayer('modal-phone');
   }
 
   function closeModal() {
@@ -314,9 +322,6 @@
 
   function animateImpactBars(container) {
     requestAnimationFrame(() => {
-      $$(container).length === 0
-        ? container.querySelectorAll?.('.impact-fill')?.forEach?.(animateBar)
-        : null;
       const root = container instanceof Element ? container : document;
       root.querySelectorAll('.impact-fill').forEach(animateBar);
     });
@@ -338,24 +343,20 @@
       autoplay: true,
       onSceneChange: (idx) => {
         if (timelineEl) timelineEl.innerHTML = renderStoryboardTimeline(item.storyboard, idx);
-        $$('#simulator-timeline .storyboard-frame').forEach((f) => {
-          f.addEventListener('click', () => {
-            simPlayer?.goToScene(parseInt(f.dataset.index, 10));
-            simPlayer?.play();
-          });
-        });
       },
     });
-    if (timelineEl) timelineEl.innerHTML = renderStoryboardTimeline(item.storyboard, 0);
+    if (timelineEl) {
+      timelineEl.innerHTML = renderStoryboardTimeline(item.storyboard, 0);
+      timelineEl.onclick = (e) => {
+        const frame = e.target.closest('.storyboard-frame');
+        if (!frame) return;
+        simPlayer?.goToScene(parseInt(frame.dataset.index, 10));
+        simPlayer?.play();
+      };
+    }
     $('#sim-hook').textContent = item.hook;
     $('#sim-title').textContent = item.title;
     $('#sim-meta').textContent = `${item.duration} · ${item.location} · Viral ${item.viralScore}%`;
-    $$('#simulator-timeline .storyboard-frame').forEach((f) => {
-      f.addEventListener('click', () => {
-        simPlayer?.goToScene(parseInt(f.dataset.index, 10));
-        simPlayer?.play();
-      });
-    });
   }
 
   function initSimulator() {
@@ -497,12 +498,32 @@
   function initMobileMenu() {
     const btn = $('#mobile-menu-btn');
     const menu = $('#mobile-menu');
-    btn?.addEventListener('click', () => {
-      menu.classList.toggle('open');
-      btn.setAttribute('aria-expanded', menu.classList.contains('open'));
+    const icon = btn?.querySelector('svg');
+
+    const setMenuOpen = (open) => {
+      menu?.classList.toggle('open', open);
+      btn?.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (icon) {
+        icon.innerHTML = open
+          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>'
+          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+    };
+
+    btn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMenuOpen(!menu?.classList.contains('open'));
     });
-    $$('#mobile-menu a').forEach((link) => {
-      link.addEventListener('click', () => menu.classList.remove('open'));
+
+    const closeMenu = () => setMenuOpen(false);
+    $$('#mobile-menu a, #mobile-menu [data-download-excel]').forEach((el) => {
+      el.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menu?.classList.contains('open')) return;
+      if (menu.contains(e.target) || btn?.contains(e.target)) return;
+      closeMenu();
     });
   }
 

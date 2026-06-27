@@ -17,36 +17,43 @@ function renderMiniScene(item) {
 function initMiniCanvasPreviews(container) {
   if (typeof CanvasScenes === 'undefined') return;
   const root = container || document;
+
   const setup = () => {
-  root.querySelectorAll('.mini-vp[data-mini-anim]').forEach((wrap) => {
-    const canvas = wrap.querySelector('.mini-canvas');
-    if (!canvas || canvas.dataset.ready) return;
-    const animId = wrap.dataset.miniAnim;
-    const item = CONTENT_ITEMS.find((i) => String(i.id) === wrap.dataset.miniId);
-    const meta = item ? { overlay: item.storyboard[0]?.overlay || item.hook } : {};
+    root.querySelectorAll('.mini-vp[data-mini-anim]').forEach((wrap) => {
+      if (wrap._miniInterval) return;
 
-    const draw = () => {
-      const parent = canvas.parentElement;
-      const w = parent.clientWidth || 280;
-      const h = parent.clientHeight || 200;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      canvas.style.width = w + 'px';
-      canvas.style.height = h + 'px';
-      const ctx = canvas.getContext('2d');
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const t = (Date.now() % 3000) / 3000;
-      CanvasScenes.draw(animId, ctx, w, h, t, meta);
-    };
+      const canvas = wrap.querySelector('.mini-canvas');
+      if (!canvas) return;
 
-    draw();
-    canvas.dataset.ready = '1';
-    if (!wrap._miniInterval) {
+      const animId = wrap.dataset.miniAnim;
+      const item = CONTENT_ITEMS.find((i) => String(i.id) === wrap.dataset.miniId);
+      const meta = item ? { overlay: item.storyboard[0]?.overlay || item.hook } : {};
+
+      const draw = () => {
+        if (!canvas.isConnected) {
+          clearInterval(wrap._miniInterval);
+          wrap._miniInterval = null;
+          return;
+        }
+        const parent = canvas.parentElement;
+        const w = parent.clientWidth || 280;
+        const h = parent.clientHeight || 200;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const t = (Date.now() % 3000) / 3000;
+        CanvasScenes.draw(animId, ctx, w, h, t, meta);
+      };
+
+      draw();
       wrap._miniInterval = setInterval(draw, 80);
-    }
-  });
+    });
   };
+
   if (typeof FontLoader !== 'undefined') FontLoader.ensureLoaded().then(setup);
   else setup();
 
@@ -69,6 +76,7 @@ function renderStoryboardTimeline(storyboard, activeIndex = 0) {
             <p class="storyboard-title">${s.title}</p>
             <p class="storyboard-desc">${s.desc}</p>
             ${s.overlay ? `<span class="storyboard-overlay-tag">${s.overlay}</span>` : ''}
+            ${s.legalOutro ? `<span class="storyboard-legal-tag">⚖️ ${s.legalOutro}</span>` : ''}
           </div>
         </div>
       `

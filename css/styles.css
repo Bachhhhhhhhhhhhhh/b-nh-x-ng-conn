@@ -402,6 +402,17 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0.25rem;
   font-weight: 600;
 }
+.storyboard-legal-tag {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.8125rem;
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 700;
+  border-left: 3px solid var(--police-blue);
+}
 
 /* Dialogues */
 .dialogue-box { display: flex; flex-direction: column; gap: 0.6rem; }

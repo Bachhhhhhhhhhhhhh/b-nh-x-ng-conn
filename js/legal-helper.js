@@ -24,7 +24,7 @@ function renderLegalArticles(articles) {
 }
 
 function formatLegalForExport(articles) {
-  if (!articles?.length) return '';
+  if (!articles || !articles.length) return '';
   return articles
     .map(
       (a) =>
