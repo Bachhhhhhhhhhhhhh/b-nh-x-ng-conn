@@ -15,7 +15,6 @@ const SCENE_ANIM_MAP = {
 
 const SCENE_MS = 2800;
 
-/* Canvas renderer in canvas-scenes.js */
 function parseTotalSeconds(durationStr) {
   const m = String(durationStr || '').match(/(\d+)/);
   return m ? parseInt(m[1], 10) : 30;
@@ -75,7 +74,7 @@ class VideoPlayer {
       return `<div class="vp-viewport vp-viewport-canvas">
         <canvas class="vp-canvas"></canvas>
         <div class="vp-grain"></div><div class="vp-vignette"></div>
-        <div class="vp-mini-label">笆ｶ Xem th盻ｭ</div>
+        <div class="vp-mini-label">▶ Xem thử</div>
       </div>`;
     }
 
@@ -94,30 +93,30 @@ class VideoPlayer {
           <div class="vp-grain"></div>
           <div class="vp-vignette"></div>
           <div class="vp-scanline"></div>
-          <div class="vp-rec"><span class="vp-rec-dot"></span> ﾄ植NG QUAY</div>
-          <div class="vp-scene-badge">C蘯｣nh <span class="vp-scene-num">1</span> / ${this.sceneCount}</div>
+          <div class="vp-rec"><span class="vp-rec-dot"></span> ĐANG QUAY</div>
+          <div class="vp-scene-badge">Cảnh <span class="vp-scene-num">1</span> / ${this.sceneCount}</div>
           <div class="vp-tiktok-side">
-            <div class="vp-tiktok-btn" title="Thﾃｭch">笶､</div>
-            <div class="vp-tiktok-btn" title="Bﾃｬnh lu蘯ｭn">町</div>
-            <div class="vp-tiktok-btn" title="Chia s蘯ｻ">竊・/div>
+            <div class="vp-tiktok-btn" title="Thích">❤️</div>
+            <div class="vp-tiktok-btn" title="Bình luận">💬</div>
+            <div class="vp-tiktok-btn" title="Chia sẻ">↗️</div>
           </div>
         </div>
         <div class="vp-controls">
           <div class="vp-controls-top">
-            <button type="button" class="vp-play-btn" aria-label="Phﾃ｡t / T蘯｡m d盻ｫng">
+            <button type="button" class="vp-play-btn" aria-label="Phát / Tạm dừng">
               <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             </button>
             <span class="vp-time">0:00 / ${formatTime(this.totalSec)}</span>
             <div class="vp-wave"><span></span><span></span><span></span><span></span><span></span></div>
           </div>
-          <div class="vp-scrubber" role="slider" aria-label="Ti蘯ｿn trﾃｬnh video">
+          <div class="vp-scrubber" role="slider" aria-label="Tiến trình video">
             <div class="vp-scene-marks">${marks}</div>
             <div class="vp-scrubber-fill" style="width:0%"></div>
           </div>
         </div>
         <div class="vp-tiktok-footer">
           <div class="vp-footer-text"><strong>@BinhXangCon</strong><span>${title}</span></div>
-          <div class="vp-footer-stats">笶､ ${this.item.viralLikes}</div>
+          <div class="vp-footer-stats">❤️ ${this.item.viralLikes}</div>
         </div>
       </div>`;
   }
@@ -145,7 +144,11 @@ class VideoPlayer {
 
   _sceneMeta(index) {
     const story = this.item.storyboard[index] || {};
-    return { overlay: story.overlay || this.item.hook, title: story.title || '' };
+    return {
+      overlay: story.overlay || this.item.hook,
+      title: story.title || '',
+      legalOutro: story.legalOutro || '',
+    };
   }
 
   _drawCanvas() {

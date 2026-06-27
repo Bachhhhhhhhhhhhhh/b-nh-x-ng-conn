@@ -223,7 +223,7 @@ const CanvasScenes = (() => {
       person(ctx, w * 0.5, h * 0.68, 1, COLORS.peach, 'BXC 😱');
       overlayText(ctx, w, h, meta.overlay || 'Nạn nhân là Công an!', 'TWIST');
     },
-    'outro-wallet': (ctx, w, h, t, meta) => outro(ctx, w, h, t, 'Đừng để ví bay trên xe buýt!', '📞 113'),
+    'outro-wallet': (ctx, w, h, t, meta) => outro(ctx, w, h, t, meta.legalOutro || meta.overlay || 'Điều 173 BLHS 2015 · Khoản 1', '📞 113'),
 
     'street-phone': (ctx, w, h, t, meta) => {
       bg(ctx, w, h, '#64748b', '#334155');
@@ -263,7 +263,7 @@ const CanvasScenes = (() => {
       person(ctx, w * 0.4, h * 0.55, 1, COLORS.blue, 'Gọi 113');
       overlayText(ctx, w, h, meta.overlay || 'Bình tĩnh báo Công an', '');
     },
-    'outro-snatch': (ctx, w, h, t, meta) => outro(ctx, w, h, t, 'Cướp giật = Tự đào hố cho mình', '📞 113'),
+    'outro-snatch': (ctx, w, h, t, meta) => outro(ctx, w, h, t, meta.legalOutro || meta.overlay || 'Điều 171 BLHS 2015 · Khoản 1', '📞 113'),
 
     'traffic-crash': (ctx, w, h, t, meta) => {
       bg(ctx, w, h, '#78350f', '#44403c');
@@ -294,7 +294,7 @@ const CanvasScenes = (() => {
       person(ctx, w * 0.68, h * 0.58, 1, COLORS.peach, 'BXC');
       overlayText(ctx, w, h, meta.overlay || 'Phạt vì gây rối', '');
     },
-    'outro-calm': (ctx, w, h, t, meta) => outro(ctx, w, h, t, 'Va chạm — Bình tĩnh xử lý', '📞 113'),
+    'outro-calm': (ctx, w, h, t, meta) => outro(ctx, w, h, t, meta.legalOutro || meta.overlay || 'Điều 318 BLHS 2015 · K1 + K2', '📞 113'),
 
     'vendor-block': (ctx, w, h, t, meta) => {
       bg(ctx, w, h, '#c2410c', '#78350f');
@@ -329,7 +329,7 @@ const CanvasScenes = (() => {
       ctx.fillText('SAU ✅', w * 0.75, h * 0.45);
       overlayText(ctx, w, h, meta.overlay || 'Vỉa hè thông thoáng', '');
     },
-    'outro-viahe': (ctx, w, h, t, meta) => outro(ctx, w, h, t, 'Vỉa hè không phải riêng ai', '📞 113'),
+    'outro-viahe': (ctx, w, h, t, meta) => outro(ctx, w, h, t, meta.legalOutro || meta.overlay || 'NĐ 168/2024 Điều 20 · K1', '📞 113'),
 
     'bet-lose': (ctx, w, h, t, meta) => {
       bg(ctx, w, h, '#292524', '#1c1917');
@@ -362,7 +362,7 @@ const CanvasScenes = (() => {
       person(ctx, w * 0.72, h * 0.65, 0.95, COLORS.peach, 'BXC');
       overlayText(ctx, w, h, meta.overlay || 'Bị bắt quả tang!', '');
     },
-    'outro-cado': (ctx, w, h, t, meta) => outro(ctx, w, h, t, 'Cá độ — Con đường không lối về', '📞 113'),
+    'outro-cado': (ctx, w, h, t, meta) => outro(ctx, w, h, t, meta.legalOutro || meta.overlay || 'Điều 321 + 173 BLHS 2015', '📞 113'),
 
     'night-walk': (ctx, w, h, t, meta) => {
       bg(ctx, w, h, '#0f172a', '#312e81');
@@ -395,7 +395,7 @@ const CanvasScenes = (() => {
       person(ctx, w * 0.45, h * 0.55, 1.1, COLORS.peach, 'BXC');
       overlayText(ctx, w, h, meta.overlay || 'Đi nhầm ngõ — Xin lỗi!', 'TWIST');
     },
-    'outro-safe': (ctx, w, h, t, meta) => outro(ctx, w, h, t, 'An toàn luôn là ưu tiên', '📞 113'),
+    'outro-safe': (ctx, w, h, t, meta) => outro(ctx, w, h, t, meta.legalOutro || meta.overlay || 'BLTTHS Điều 143 · K1', '📞 113'),
 
     'market-busy': (ctx, w, h, t, meta) => {
       bg(ctx, w, h, '#14532d', '#422006');
@@ -431,7 +431,7 @@ const CanvasScenes = (() => {
       ctx.fillText('CÓ TRỘM!', w / 2, h * 0.32);
       overlayText(ctx, w, h, meta.overlay || 'Bắt quả tang!', '');
     },
-    'outro-cho': (ctx, w, h, t, meta) => outro(ctx, w, h, t, 'Chợ đông — Để túi trước ngực', '📞 113'),
+    'outro-cho': (ctx, w, h, t, meta) => outro(ctx, w, h, t, meta.legalOutro || meta.overlay || 'Điều 173 BLHS 2015 · K1 + K2', '📞 113'),
 
     'cards-play': (ctx, w, h, t, meta) => {
       bg(ctx, w, h, '#292524', '#1c1917');
@@ -466,7 +466,7 @@ const CanvasScenes = (() => {
       person(ctx, w * 0.72, h * 0.6, 1, COLORS.peach, 'Viết cam kết');
       overlayText(ctx, w, h, meta.overlay || 'Xử lý cờ bạc', '');
     },
-    'outro-cobac': (ctx, w, h, t, meta) => outro(ctx, w, h, t, 'Cờ bạc trái phép — Hình sự', '📞 113'),
+    'outro-cobac': (ctx, w, h, t, meta) => outro(ctx, w, h, t, meta.legalOutro || meta.overlay || 'Điều 321 + 322 BLHS 2015', '📞 113'),
 
     'drunk-sing': (ctx, w, h, t, meta) => {
       bg(ctx, w, h, '#1e1b4b', '#0f172a');
@@ -500,7 +500,7 @@ const CanvasScenes = (() => {
       person(ctx, w * 0.65, h * 0.58, 1, COLORS.peach, '😴');
       overlayText(ctx, w, h, meta.overlay || 'Đưa về an toàn', '');
     },
-    'outro-say': (ctx, w, h, t, meta) => outro(ctx, w, h, t, 'Uống có trách nhiệm — Không gây rối', '📞 113'),
+    'outro-say': (ctx, w, h, t, meta) => outro(ctx, w, h, t, meta.legalOutro || meta.overlay || 'Điều 318 BLHS 2015 · K1', '📞 113'),
 
     'witness-see': (ctx, w, h, t, meta) => {
       bg(ctx, w, h, '#1e3a5f', '#0f172a');
@@ -535,7 +535,7 @@ const CanvasScenes = (() => {
       person(ctx, w * 0.68, h * 0.55, 1.1, '#1e40af', 'CA');
       overlayText(ctx, w, h, meta.overlay || 'Tố giác ngay!', '');
     },
-    'outro-bao': (ctx, w, h, t, meta) => outro(ctx, w, h, t, 'Thấy mà báo — Cùng nhau an toàn', '📞 113'),
+    'outro-bao': (ctx, w, h, t, meta) => outro(ctx, w, h, t, meta.legalOutro || meta.overlay || 'HP Điều 15 · K4 + BLTTHS 143', '📞 113'),
   };
 
   function draw(animId, ctx, w, h, progress, meta) {
